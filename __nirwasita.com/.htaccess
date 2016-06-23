@@ -4,6 +4,15 @@ RewriteEngine on
 # Remove www for SEO #
 RewriteCond %{HTTP_HOST} ^nirwasita\.waikijogja\.com$ [NC,OR]
 RewriteCond %{HTTP_HOST} ^www\.nirwasita\.waikijogja\.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^nirwasita\.com$ [NC,OR]
 RewriteCond %{HTTP_HOST} ^www\.nirwasita\.com$ [NC]
-RewriteRule ^(.*)$ "http\:\/\/nirwasita\.com\/$1" [R=301,L]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ "https\:\/\/nirwasita\.com\/$1" [R=301,L]
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule . index.php
 
